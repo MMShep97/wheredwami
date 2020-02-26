@@ -9,7 +9,7 @@ Indoor localization of Raspberry Pis using publicly available Wi-Fi signals and 
 
 ### Who are we?
 
-WE ARE --> D.W.A.M.
+```WE ARE --> D.W.A.M.```
 
 ```
 D.W.A.M. is a senior design super group within the University of Iowa Department of Electrical and Computer 
