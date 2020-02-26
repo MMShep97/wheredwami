@@ -1,10 +1,15 @@
 # dwamify
 Senior design project -- tbd description
 
-Indoor localization of Raspberry Pis using publicly available Wi-Fi signals and machine learning. University of Iowa ECE Senior Design Project. Inspiration / Code taken from [whereami](https://github.com/kootenpv/whereami). Faculty sponsor [Professor Raghuraman Mudumbai](https://www.engineering.uiowa.edu/faculty-staff/raghuraman-mudumbai). 
+## What is it?
 
-## D.W.A.M.
-### Who is D.W.A.M.?
+```
+Indoor localization of Raspberry Pis using publicly available Wi-Fi signals and machine learning. University of Iowa ECE Senior Design Project. Inspiration / Code taken from [whereami](https://github.com/kootenpv/whereami). Faculty sponsor [Professor Raghuraman Mudumbai](https://www.engineering.uiowa.edu/faculty-staff/raghuraman-mudumbai). 
+```
+
+### Who are we?
+
+WE ARE --> D.W.A.M.
 
 ```
 D.W.A.M. is a senior design super group within the University of Iowa Department of Electrical and Computer 
