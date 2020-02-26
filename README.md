@@ -11,5 +11,5 @@ D.W.A.M. is a senior design super group within the University of Iowa Department
 Engineering. The team is formed of Daniel Kelly, Sy Butler and Marc Shepherd - industry veterans, paragons 
 of scholarship and citizens of the C.N. In addition to our technical expertise, D.W.A.M. brings a unique 
 perspective to every project they touch due to diverse backgrounds including, but not limited to, fun running, 
-chordophic dabbling, quad-wheeled vehicular ball sports, reading books assigned in high school english class.
+chordophonic dabbling, quad-wheeled vehicular ball sports, reading books assigned in high school english class.
 ```
