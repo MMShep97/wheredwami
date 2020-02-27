@@ -5,20 +5,15 @@ A project largely inspired from the whereami python package
 ```
 
 ## Setup
---------------
-
 Install Python dependencies
 ```
 pip install -r requirements.txt
 ```
 
 ## What is it?
------------------------
-
 Indoor localization of Raspberry Pis using publicly available Wi-Fi signals and machine learning. University of Iowa ECE Senior Design Project. Inspiration / Code taken from [whereami](https://github.com/kootenpv/whereami). Faculty sponsor [Professor Raghuraman Mudumbai](https://www.engineering.uiowa.edu/faculty-staff/raghuraman-mudumbai). 
 
 ## Who are we?
-
 ```WE ARE --> D.W.A.M.```
 
 ```
