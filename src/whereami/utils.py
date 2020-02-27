@@ -1,9 +1,9 @@
-from predict import predict
-from predict import predict_proba
-from predict import crossval
-from predict import locations
-from learn import learn
-from pipeline import train_model
+from whereami.predict import predict
+from whereami.predict import predict_proba
+from whereami.predict import crossval
+from whereami.predict import locations
+from whereami.learn import learn
+from whereami.pipeline import train_model
 
 from whereami import print_version
 from whereami.utils import rename_label

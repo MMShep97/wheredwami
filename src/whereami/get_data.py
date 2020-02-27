@@ -2,7 +2,7 @@ import json
 import os
 from access_points import get_scanner
 
-from utils import ensure_whereami_path
+from whereami.utils import ensure_whereami_path
 
 def aps_to_dict(aps):
     return {ap['ssid'] + " " + ap['bssid']: ap['quality'] for ap in aps}

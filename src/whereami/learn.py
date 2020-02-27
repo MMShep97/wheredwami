@@ -3,9 +3,9 @@ from collections import Counter
 
 from access_points import get_scanner
 
-from get_data import get_train_data, get_external_sample, sample, aps_to_dict
-from pipeline import get_model
-from compat import cross_val_score
+from whereami.get_data import get_train_data, get_external_sample, sample, aps_to_dict
+from whereami.pipeline import get_model
+from whereami.compat import cross_val_score
 
 def predict_proba(input_path=None, model_path=None, device=""):
     lp = get_model(model_path)
