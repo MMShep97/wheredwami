@@ -5,7 +5,7 @@
             <b-row>
                 <b-col>
                     <div class="floor-container">
-                        <img :src="floorMap"/>
+                        <img :src="floorMap" width="1000px"/>
                     </div>
                 </b-col>
             </b-row>
@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import floorMap from '../assets/images/floormap.png'
+import floorMap from '../assets/images/floormap.svg'
+import '../scripts/js/map'
 export default {
     data() {
         return {
