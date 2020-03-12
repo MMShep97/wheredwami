@@ -1,6 +1,5 @@
-import { apiKey } from './keys.js.js'
+import { apiKey } from './keys.js'
 import * as firebase from 'firebase'
-import 'firebase/empty-import'
 
   // Your web app's Firebase configuration
   var firebaseConfig = {

@@ -2,13 +2,15 @@
     <div>
         <b-container>
             <b-row>
+                <b-col/>
                 <b-col>
                     <div class="floor-container">
-                        <svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">
+                        <div class="red-dot" :style="{right: activePoster.xCoord * 8 + 'px'}">
+                            
+                        </div>
+                        <!-- coords scaled by 8 -->
+                        <svg width="580" height="400" viewBox="0 0 620" xmlns="http://www.w3.org/2000/svg">
                             <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
-
-
-
                             <g>
                                 <title>background</title>
                                 <rect fill="#fff" id="canvas_background" height="402" width="582" y="-1" x="-1" />
@@ -53,7 +55,7 @@
                                 <g>
                                     <title>metaldust</title>
 
-                                    <rect id="metaldust" :class="{'static-active': activePoster.name == 'metaldust' ? true: false}" height="6.766917" width="31.578947" y="390.726817"
+                                    <rect id="metaldus" :class="{'static-active': activePoster.name == 'metaldus' ? true: false}" height="6.766917" width="31.578947" y="390.726817"
                                         x="374.586455" stroke-width="1.5" stroke="#000" fill="#fff" />
                                 </g>
                                 <g>
@@ -71,7 +73,7 @@
                                 <g>
                                     <title>formosa</title>
 
-                                    <rect id="formosa" :class="{'static-active': activePoster.name == 'formosa' ? true: false} "height="6.766917" width="31.578947" y="390.726817" x="198.646607"
+                                    <rect id="pvcexplosion" :class="{'static-active': activePoster.name == 'pvcexplosion' ? true: false}" height="6.766917" width="31.578947" y="390.726817" x="198.646607"
                                         stroke-width="1.5" stroke="#000" fill="#fff" />
                                 </g>
                                 <g>
@@ -135,7 +137,7 @@
                                 <g>
                                     <title>fatalexplosion</title>
 
-                                    <rect id="fatalexplosion" :class="{'static-active': activePoster.name == 'fatalexplosion' ? true: false}" height="6.766917" width="31.578947" y="390.726817"
+                                    <rect id="dupon" :class="{'static-active': activePoster.name == 'dupon' ? true: false}" height="6.766917" width="31.578947" y="390.726817"
                                         x="14.436083" stroke-width="1.5" stroke="#000" fill="#fff" />
                                 </g>
                             </g>
@@ -143,6 +145,7 @@
                         <!-- <img :src="floorMap" width="1000px"/> -->
                     </div>
                 </b-col>
+                <b-col/>
             </b-row>
             <b-row>
                 <b-col/>
@@ -158,9 +161,9 @@
       <b-card-text class="mt-0 mb-0">Poster: {{activePoster.name}}</b-card-text>
       <b-card-text class="mt-0 mb-2">x: {{activePoster.xCoord}} | y: {{activePoster.yCoord}}</b-card-text>
       <b-card-text class="text-left mt-2 mb-0"><b><i>Color Legend</i></b></b-card-text>
-      <b-card-text class="mt-0 mb-0 text-left">Static Classification: <span class="static-active">test</span></b-card-text>
-      <b-card-text class="mt-0 mb-0 text-left">Dynamic Classification &amp; dot: <span class="dynamic-active">test</span></b-card-text>
-      <b-card-text class="mt-0 mb-0 text-left">If both classify same: <span class="same-active">test</span></b-card-text>
+      <b-card-text class="mt-0 mb-0 text-left">Classification: <span class="static-active legend"></span></b-card-text>
+      <b-card-text class="mt-0 mb-0 text-left">Smoothed Position Estimate: <span class="dynamic-active legend"></span></b-card-text>
+      <!-- <b-card-text class="mt-0 mb-0 text-left">If both classify same: <span class="same-active">test</span></b-card-text> -->
 
 
 
@@ -176,6 +179,7 @@
 <script>
     import floorMap from '../assets/images/floormap.svg'
     import axios from 'axios'
+    import { database } from '../scripts/js/database'
     export default {
         data() {
             return {
@@ -190,7 +194,7 @@
 
         methods: {
             getActivePoster: function () {
-                const path = 'http://localhost:5000/active-poster'
+                const path = 'http://172.23.49.107:5000/active-poster'
                 axios.get(path)
                     .then((response) => {
                         this.activePoster = response.data
@@ -212,18 +216,37 @@
 <style scoped>
 
     .floor-container {
-        margin-left: auto;
-        margin-right: auto;
+        position: relative;
+    }
+
+    .red-dot {
+        width: 12px;
+        height: 12px;
+        background-color: red;
+        border-radius: 100%;
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+        z-index: 100
     }
 
     .static-active {
         fill: var(--static);
         color: var(--static);
+        background-color: var(--static)
+    }
+
+    .legend {
+        display: inline-block;
+        border-radius: 100%;
+        width: 10px;
+        height: 10px;
     }
 
     .dynamic-active {
         color: var(--dynamic);
         fill: var(--dynamic);
+        background-color: var(--dynamic);
     }
 
     .same-active {
