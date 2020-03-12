@@ -9,6 +9,22 @@ Install Python dependencies
 ```
 pip install -r requirements.txt
 ```
+Install node dependencies (in web-application --> client directory)
+```
+npm install
+```
+
+## Running Server & Client
+In web-application --> server directory, run the following to start the flask server:
+```
+python app.py
+```
+In web-application --> client directory, run the following to start the node dev server:
+```
+npm run serve
+```
+
+
 
 ## What is it?
 Indoor localization of Raspberry Pis using publicly available Wi-Fi signals and machine learning. University of Iowa ECE Senior Design Project. Inspiration / Code taken from [whereami](https://github.com/kootenpv/whereami). Faculty sponsor [Professor Raghuraman Mudumbai](https://www.engineering.uiowa.edu/faculty-staff/raghuraman-mudumbai). 

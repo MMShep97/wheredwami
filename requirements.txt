@@ -4,3 +4,4 @@ scikit-learn
 tqdm
 access_points
 pyrebase4
+python-dotenv
