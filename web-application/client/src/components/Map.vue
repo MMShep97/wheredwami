@@ -5,11 +5,11 @@
                 <b-col/>
                 <b-col>
                     <div class="floor-container">
-                        <div class="red-dot" :style="{right: activePoster.xCoord * 8 + 'px'}">
+                        <div class="red-dot" :style="{right: activePoster.xCoord * 7.5 + 'px'}">
                             
                         </div>
                         <!-- coords scaled by 8 -->
-                        <svg width="580" height="400" viewBox="0 0 620" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="svg-map" width="580" height="400" xmlns="http://www.w3.org/2000/svg">
                             <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
                             <g>
                                 <title>background</title>
@@ -161,7 +161,7 @@
       <b-card-text class="mt-0 mb-0">Poster: {{activePoster.name}}</b-card-text>
       <b-card-text class="mt-0 mb-2">x: {{activePoster.xCoord}} | y: {{activePoster.yCoord}}</b-card-text>
       <b-card-text class="text-left mt-2 mb-0"><b><i>Color Legend</i></b></b-card-text>
-      <b-card-text class="mt-0 mb-0 text-left">Classification: <span class="static-active legend"></span></b-card-text>
+      <b-card-text class="mt-0 mb-0 text-left">Classification Before Smoothing: <span class="static-active legend"></span></b-card-text>
       <b-card-text class="mt-0 mb-0 text-left">Smoothed Position Estimate: <span class="dynamic-active legend"></span></b-card-text>
       <!-- <b-card-text class="mt-0 mb-0 text-left">If both classify same: <span class="same-active">test</span></b-card-text> -->
 
@@ -179,7 +179,6 @@
 <script>
     import floorMap from '../assets/images/floormap.svg'
     import axios from 'axios'
-    import { database } from '../scripts/js/database'
     export default {
         data() {
             return {
@@ -214,6 +213,7 @@
 </script>
 
 <style scoped>
+
 
     .floor-container {
         position: relative;
