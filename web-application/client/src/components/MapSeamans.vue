@@ -177,7 +177,7 @@
 </template>
 
 <script>
-    import floorMap from '../assets/images/floormap.svg'
+    import floorMap from '../assets/images/floormap-4thfloorseamanscenter.svg'
     import axios from 'axios'
     export default {
         data() {
