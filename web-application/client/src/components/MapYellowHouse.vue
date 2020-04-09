@@ -137,7 +137,7 @@
 
         methods: {
             getActivePoster: function () {
-                const path = 'http://172.23.49.107:5000/active-poster'
+                const path = 'http://192.168.1.35:5000/active-poster'
                 axios.get(path)
                     .then((response) => {
                         this.activePoster = response.data
