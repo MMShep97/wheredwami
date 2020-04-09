@@ -13,9 +13,8 @@ from ctypes import c_char_p
 import logging
 
 #### VARIABLES #################################
-posters = ["sy", "daniel", "ben", "table", "oven", "fridge"]
-distances_x = {"sy": 136.5, "daniel": 38.5, "ben": 38.5, "table": 260, "oven": 137, "fridge": 255}
-distances_y = {"sy": 36.5, "daniel": 36.5, "ben": 110, "table": 79, "oven": 162, "fridge": 190}
+posters = ["dupon", "fatalgas", "honeywell", "metaldus", "morton", "pascagoula", "pvcexplosion", "toxicrelease"]
+distances = {"dupon": 77.5, "fatalgas": 51.75, "honeywell": 24.83, "metaldus": 20.167, "morton": 63.75, "pascagoula": 14.67, "pvcexplosion": 46, "toxicrelease": 32.5}
 data = [[],[],[],[],[],[],[],[]]
 od = False
 
@@ -23,24 +22,18 @@ od = False
 
 # Two values sent to Marco
 postername = "default"
-xcoord = 1.23
-ycoord = 1.23
+xcoord = -1.23
+ycoord = 0
 
 manager = Manager()
 poster_name = manager.Value(c_char_p, 'gorf')
 x_coord = Value('d', 1.23)
-y_coord = Value('d', 1.23)
+y_coord = Value('d', 0.0)
 
 def get_x_coord(pred):
 	global xcoord
-	b = pred["sy"]*distances_x["sy"] + pred["daniel"]*distances_x["daniel"] + pred["ben"]*distances_x["ben"] + pred["table"]*distances_x["table"] + pred["oven"]*distances_x["oven"] + pred["fridge"]*distances_x["fridge"]
+	b = pred["pascagoula"]*distances["pascagoula"] + pred["metaldus"]*distances["metaldus"] + pred["honeywell"]*distances["honeywell"] + pred["toxicrelease"]*distances["toxicrelease"] + pred["pvcexplosion"]*distances["pvcexplosion"] + pred["fatalgas"]*distances["fatalgas"] + pred["morton"]*distances["morton"] + pred["dupon"]*distances["dupon"]
 	xcoord = b
-	return b
-
-def get_y_coord(pred):
-	global ycoord
-	b = pred["sy"]*distances_y["sy"] + pred["daniel"]*distances_y["daniel"] + pred["ben"]*distances_y["ben"] + pred["table"]*distances_y["table"] + pred["oven"]*distances_y["oven"] + pred["fridge"]*distances_y["fridge"]
-	ycoord = b
 	return b
 
 def get_predictions():
@@ -54,7 +47,6 @@ def predict_loop(poster_name, x_coord, y_coord):
     chances_left = 4
     global postername
     global xcoord
-    global ycoord
 
     while (True):
         time.sleep(1)
@@ -71,15 +63,18 @@ def predict_loop(poster_name, x_coord, y_coord):
         if first or chances_left == 0:
             chances_left = 4
             prev_x = x
+            # print(get_x_coord(x))
             first = False
             continue
 
-        data.append(prev_x["sy"] - x["sy"])
-        data.append(prev_x["daniel"] - x["daniel"])
-        data.append(prev_x["ben"] - x["ben"])
-        data.append(prev_x["oven"] - x["oven"])
-        data.append(prev_x["table"] - x["table"])
-        data.append(prev_x["fridge"] - x["fridge"])
+        data.append(prev_x["dupon"] - x["dupon"])
+        data.append(prev_x["fatalgas"] - x["fatalgas"])
+        data.append(prev_x["honeywell"] - x["honeywell"])
+        data.append(prev_x["metaldus"] - x["metaldus"])
+        data.append(prev_x["morton"] - x["morton"])
+        data.append(prev_x["pascagoula"] - x["pascagoula"])
+        data.append(prev_x["pvcexplosion"] - x["pvcexplosion"])
+        data.append(prev_x["toxicrelease"] - x["toxicrelease"])
 
         for i in range(len(data)):
             if data[i] >= 0.4 or data[i] <= -0.4:
@@ -93,9 +88,8 @@ def predict_loop(poster_name, x_coord, y_coord):
         print("no outlier detected")
         prev_x = x
         print("x coord: ", get_x_coord(x))
-        print("y coord: ", get_y_coord(x))
         x_coord.value = get_x_coord(x)
-        y_coord.value = get_y_coord(x)
+        y_coord.value = 0
 
 
         #if poo == "s":
