@@ -17,7 +17,7 @@ npm install
 ## Running Server & Client
 In web-application --> server directory, run the following to start the flask server:
 ```
-python app.py
+python donut-flask.py
 ```
 In web-application --> client directory, run the following to start the node dev server:
 ```
