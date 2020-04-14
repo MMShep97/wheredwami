@@ -55,3 +55,5 @@ if __name__ == "__main__":
 
     with open('output.txt', 'w') as fout:
         json.dump(filtered_data, fout)
+    
+    print("Outputting to file & EXITING!!!")
