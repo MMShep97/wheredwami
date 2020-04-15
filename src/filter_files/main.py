@@ -53,7 +53,10 @@ if __name__ == "__main__":
     # print(*filtered_routers.items(), sep="\n")
     # print(*filtered_data, sep="\n")
 
+    filtered_res = str(filtered_data)[1:-1]
+
     with open('output.txt', 'w') as fout:
-        json.dump(filtered_data, fout)
+        for item in filtered_data:
+            fout.write("%s\n" % item)
     
     print("Outputting to file & EXITING!!!")
