@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import Map from './components/MapYellowHouse'
+// import Map from './components/MapYellowHouse'
+import Map from './components/MapYellowHouseSimplified'
 export default {
   components: {
     Map,
