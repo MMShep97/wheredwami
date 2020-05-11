@@ -1,75 +1,31 @@
+import time
 import json
-from collections import Counter
 
-from access_points import get_scanner
+from tqdm import tqdm
 
-from whereami.get_data import get_train_data, get_external_sample, sample, aps_to_dict
-from whereami.pipeline import get_model
-from whereami.compat import cross_val_score
+from whereami.get_data import sample
 
-def predict_proba(input_path=None, model_path=None, device=""):
-    lp = get_model(model_path)
-    data_sample = sample(device) if input_path is None else get_external_sample(input_path)
-    print(json.dumps(dict(zip(lp.classes_, lp.predict_proba(data_sample)[0]))))
+from whereami.pipeline import train_model
+from whereami.utils import ensure_whereami_path
+from whereami.utils import get_label_file
 
 
-def predict(input_path=None, model_path=None, device=""):
-    lp = get_model(model_path)
-    data_sample = sample(device) if input_path is None else get_external_sample(input_path)
-    return lp.predict(data_sample)[0]
-
-def predict_test_data(input_file_path, model_path=None, device=""):
-    lp = get_model(model_path)
-    predictions = []
-    labels = []
-    with open(input_file_path) as f:
-        for line in f:
-            data_sample = json.loads(line)
-            predictions.append(lp.predict(data_sample)[0])
-            labels.append(input_file_path.replace('t.txt', '').replace('.txt', '').replace('/home/pi/.whereami/test_data/test_', ''))
-    return predictions, labels
-
-def crossval(clf=None, X=None, y=None, folds=10, n=5, path=None):
-    if X is None or y is None:
-        X, y = get_train_data(path)
-    if len(X) < folds:
-        raise ValueError('There are not enough samples ({}). Need at least {}.'.format(len(X), folds))
-    clf = clf or get_model(path)
-    tot = 0
-    print("KFold folds={}, running {} times".format(folds, n))
-    for i in range(n):
-        res = cross_val_score(clf, X, y, cv=folds).mean()
-        tot += res
-        print("{}/{}: {}".format(i + 1, n, res))
-    print("-------- total --------")
-    print(tot / n)
-    return tot / n
+def write_data(label_path, data):
+    with open(label_path, "a") as f:
+        f.write(json.dumps(data))
+        f.write("\n")
 
 
-def locations(path=None):
-    _, y = get_train_data(path)
-    if len(y) == 0:  # pragma: no cover
-        msg = "No location samples available. First learn a location, e.g. with `whereami learn -l kitchen`."
-        print(msg)
-    else:
-        occurrences = Counter(y)
-        for key, value in occurrences.items():
-            print("{}: {}".format(key, value))
-
-
-class Predicter():
-    def __init__(self, model=None, device=""):
-        self.model = model
-        self.device = device
-        self.clf = get_model(model)
-        self.wifi_scanner = get_scanner(device)
-        self.predicted_value = None
-
-    def predict(self):
-        aps = self.wifi_scanner.get_access_points()
-        self.predicted_value = self.clf.predict(aps_to_dict(aps))[0]
-        return self.predicted_value
-
-    def refresh(self):
-        self.clf = get_model(self.model)
-        self.wifi_scanner = get_scanner(self.device)
+def learn(label, n=1, device=""):
+    path = ensure_whereami_path()
+    label_path = get_label_file(path, label + ".txt")
+    for i in tqdm(range(n)):
+        if i != 0:
+            time.sleep(3)
+        try:
+            new_sample = sample(device)
+            if new_sample:
+                write_data(label_path, new_sample)
+        except KeyboardInterrupt:  # pragma: no cover
+            break
+    #train_model()

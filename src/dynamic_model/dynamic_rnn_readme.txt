@@ -1,0 +1,1 @@
+dynamic_rnn.ipynb was developed in google colab and should be run in google colab to take advantage of GPUs.

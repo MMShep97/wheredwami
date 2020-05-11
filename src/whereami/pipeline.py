@@ -1,34 +1,43 @@
-import time
-import json
-
-from tqdm import tqdm
-
-from whereami.get_data import sample
-
-from whereami.pipeline import train_model
-from whereami.utils import ensure_whereami_path
-from whereami.utils import get_label_file
+import os
+import pickle
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.neural_network import MLPClassifier
+from sklearn.pipeline import make_pipeline
+from whereami.get_data import get_train_data
+from whereami.utils import get_model_file
 
 
-def write_data(label_path, data):
-    with open(label_path, "a") as f:
-        f.write(json.dumps(data))
-        f.write("\n")
+class LearnLocation(Exception):
+    pass
 
 
-def learn(label, n=1, device=""):
-    path = ensure_whereami_path()
-    label_path = get_label_file(path, label + ".txt")
-    for i in tqdm(range(n)):
-        if i != 0:
-            time.sleep(3)
-        try:
-            new_sample = sample(device)
-            if new_sample:
-                write_data(label_path, new_sample)
-        except KeyboardInterrupt:  # pragma: no cover
-            break
-    #train_model()
+def get_pipeline(clf=RandomForestClassifier(n_estimators=100, class_weight="balanced")):
+    return make_pipeline(DictVectorizer(sparse=False), clf)
+
+
+def train_model(path=None, model_type='rf'):
+    model_file = get_model_file(path)
+    X, y = get_train_data(path)
+    if len(X) == 0:
+        raise ValueError("No wifi access points have been found during training")
+    # fantastic: because using "quality" rather than "rssi", we expect values 0-150
+    # 0 essentially indicates no connection
+    # 150 is something like best possible connection
+    # Not observing a wifi will mean a value of 0, which is the perfect default.
+    if model_type is 'rf':
+        lp = get_pipeline()
+        lp.fit(X, y)
+    elif model_type is 'nn':
+        clf = MLPClassifier(solver='adam', alpha=1e-3, hidden_layer_sizes=(64, 64, 32, 32, 32))
+        lp = get_pipeline(clf)
+        lp.fit(X, y)
+    else:
+        raise ValueError("Invalid model type")
+    with open(model_file, "wb") as f:
+        pickle.dump(lp, f)
+    return lp
+
 
 def get_model(path=None):
     model_file = get_model_file(path)

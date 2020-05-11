@@ -4,6 +4,7 @@ from access_points import get_scanner
 
 from whereami.utils import ensure_whereami_path
 
+
 def aps_to_dict(aps):
     return {ap['ssid'] + " " + ap['bssid']: ap['quality'] for ap in aps}
 
@@ -20,8 +21,7 @@ def sample(device=""):
 
 def get_external_sample(path):
     data = []
-    #with open(os.path.join(path, "current.loc.txt")) as f:
-    with open(path) as f:
+    with open(os.path.join(path, "current.loc.txt")) as f:
         for line in f:
             data.append(json.loads(line))
     return data
@@ -34,6 +34,7 @@ def get_train_data(folder=None):
     y = []
     for fname in os.listdir(folder):
         if fname.endswith(".txt"):
+            print(fname)
             data = []
             with open(os.path.join(folder, fname)) as f:
                 for line in f:
