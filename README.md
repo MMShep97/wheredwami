@@ -1,5 +1,9 @@
 # wheredwami
 
+
+> THIS IS NOT UP TO DATE - PLEASE DO NOT TRY TO RUN THIS :) We made many changes and were pressed for time, so the repo was the last of our concerns in the end. Shouts out to COVID-19.
+
+
 ```
 A project largely inspired from the whereami python package
 ```
